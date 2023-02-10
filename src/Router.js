@@ -2,6 +2,7 @@ import { useContext , useEffect , useState } from "react";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
+import AuthContext from "./components/context/Auth.context";
 
 import Login from "./components/auth/Login";
 import Navbar from "./components/layouts/NavBar";
@@ -9,7 +10,7 @@ import EditProduct from "./components/product/EditProduct";
 import ProductAdd from "./components/product/ProductAdd";
 import ProductHome from "./components/product/ProductsHome";
 import SearchProduct from "./components/product/SearchProduct";
-
+import LandingPage from "./components/layouts/LandingPage";
 
 const SiteRouter = () => {
 

@@ -3,8 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { LoginUsers } from "../../services/AuthServices.js";
 import Swal from 'sweetalert2';
 import "./responsive.css";
-import { useDispatch } from "react-redux";
-import  { setToken }  from "../../Redux/AuthSlice.js";
 
 
 const Login = () => {
@@ -21,7 +19,6 @@ const Login = () => {
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
-	const dispatch = useDispatch();
 
 	const onSubmit = async (e) => {
 
@@ -35,7 +32,6 @@ const Login = () => {
         localStorage.setItem("userRole",data?.data?.data?.userRole);
         localStorage.setItem("user",data?.data?.data?.user);
 		console.log(data?.data?.data?.token);
-		dispatch(setToken(data?.data?.data?.token));
         // navigate("/");
 		// window.location.reload();
         }

@@ -1,8 +1,7 @@
 import React,{useState ,  useEffect} from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate , Link} from "react-router-dom";
 import { Label , Button, Row, Col } from "reactstrap";
-import { logout, selectToken } from "../../Redux/AuthSlice";
+
 
 const Navbar = ()=>{
 
@@ -12,30 +11,10 @@ const Navbar = ()=>{
     const [ User,setUser ] = useState(localStorage.getItem("user"));
 
 
-    const Token1 = useSelector(selectToken);
-    console.log("Logged User token",Token1);
+
     const [token, settoken] = useState(null);
   
-    useEffect(() => {
-      var token2 =  localStorage.getItem("token");
-      if(Token1 == null)
-      {
-        if(token2 == null)
-        {
-          settoken(null);
-        }
-        else
-        {
-          settoken(token2);
-        }
-      }
-      else
-      {
-        settoken(Token1);
-      }
-    }, [])
 
-    const dispatch = useDispatch();
 
     const handleSubmit = () => {
         console.log("executed logout");
@@ -43,7 +22,6 @@ const Navbar = ()=>{
         localStorage.removeItem("userRole");
         localStorage.removeItem("user");
         window.location.reload();
-        dispatch(logout());
         navigate("/");
       }
 
