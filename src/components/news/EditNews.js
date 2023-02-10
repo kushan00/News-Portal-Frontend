@@ -8,71 +8,71 @@ import {
   Form,
 
 } from "reactstrap";
-import { updateProduct , GetOneProductDetails } from "../../services/ProductServices";
+import { updateNews , GetOneNewsDetails } from "../../services/NewsServices";
 
-const EditProduct = () => {
+const EditNews = () => {
 
 const navigate = useNavigate();
 const id = useParams();
 
 const [image, setImage] = useState([]);
 const [allImages, setallImages] = useState([]);
-const [SKU, setSKU] = useState('');
-const [quantity, setquantity] = useState('');
-const [productName, setproductName] = useState('');
-const [productDescription, setproductDescription] = useState('');
+const [ID, setID] = useState('');
+const [body, setbody] = useState('');
+const [newsName, setnewsName] = useState('');
+const [newsDescription, setnewsDescription] = useState('');
 
 
-const onChangeSKU = (e) => {
-  setSKU(e.target.value);
+const onChangeID = (e) => {
+  setID(e.target.value);
 }
-const onChangequantity = (e) => {
-  setquantity(e.target.value);
+const onChangebody = (e) => {
+  setbody(e.target.value);
 }
-const onChangeproductName = (e) => {
-  setproductName(e.target.value);
+const onChangenewsName = (e) => {
+  setnewsName(e.target.value);
 }
-const onChangeproductDescription = (e) => {
-  setproductDescription(e.target.value);
+const onChangenewsDescription = (e) => {
+  setnewsDescription(e.target.value);
 }
 
-const getSelectedProduct = async ()=>{
-    const data = await GetOneProductDetails(id.id);
+const getSelectedNews = async ()=>{
+    const data = await GetOneNewsDetails(id.id);
     if(data?.data?.status == 1)
     {
-        setSKU(data?.data?.data?.data?.SKU);
-        setquantity(data?.data?.data?.data?.quantity);
-        setproductName(data?.data?.data?.data?.productName);
-        setproductDescription(data?.data?.data?.data?.productDescription);
+        setID(data?.data?.data?.data?.ID);
+        setbody(data?.data?.data?.data?.body);
+        setnewsName(data?.data?.data?.data?.newsName);
+        setnewsDescription(data?.data?.data?.data?.newsDescription);
         setallImages(data?.data?.data?.data?.images);
     }
 }
 
 useEffect(() => {
-    getSelectedProduct();
+    getSelectedNews();
 }, []);
 
 
 const handleSubmit = async () => {
   let formData = new FormData()
-  formData.append('SKU', SKU);
-  formData.append('quantity', quantity);
-  formData.append('productName', productName);
-  formData.append('productDescription', productDescription);
+  formData.append('ID', ID);
+  formData.append('body', body);
+  formData.append('newsName', newsName);
+  formData.append('newsDescription', newsDescription);
   Array.from(image).forEach(item => {
-    formData.append('products', item)
+    formData.append('Newss', item)
   });
   console.log("sending data set ",formData);
-  await updateProduct(id.id,formData).then(result => {
+  await updateNews(id.id,formData).then(result => {
     console.log("result",result)
     if(result.data.status === 1)
     {
-      alert('Product Updated Successfully');
+      alert('News Updated Successfully');
       navigate("/");
     }
     else
     {
-      alert('Product Not Updated');
+      alert('News Not Updated');
       window.location.reload();
     }
   }).catch(err => {
@@ -83,7 +83,7 @@ const handleSubmit = async () => {
   return (
     <div style={{margin:"100px"}}>
         
-        <h1 style={{marginLeft:"10px"}}>PRODUCTS {">"} <label style={{color:"#001EB9" , fontSize:"20px"}}>Edit product</label></h1>
+        <h1 style={{marginLeft:"10px"}}>NewsS {">"} <label style={{color:"#001EB9" , fontSize:"20px"}}>Edit News</label></h1>
         <br/><br/>
      
  
@@ -98,10 +98,10 @@ const handleSubmit = async () => {
                                 id='responsiveProfile'
                                 className="form-control"
                                 type="text"
-                                placeholder="Enter SKU"
-                                name="SKU"
-                                value={SKU}
-                                onChange={(e) => onChangeSKU(e)}
+                                placeholder="Enter ID"
+                                name="ID"
+                                value={ID}
+                                onChange={(e) => onChangeID(e)}
                             />
                         </div>
                         <div className="form-group">
@@ -109,10 +109,10 @@ const handleSubmit = async () => {
                                 id='responsiveProfile'
                                 className="form-control"
                                 type="number"
-                                placeholder="Enter Quantity"
-                                name="quantity"
-                                value={quantity}
-                                onChange={(e) => onChangequantity(e)}
+                                placeholder="Enter body"
+                                name="body"
+                                value={body}
+                                onChange={(e) => onChangebody(e)}
                             />
                         </div>
                         <div className="form-group">
@@ -120,10 +120,10 @@ const handleSubmit = async () => {
                                 id='responsiveProfile'
                                 className="form-control"
                                 type="text"
-                                placeholder="Enter Product Name"
-                                name="productName"
-                                value={productName}
-                                onChange={(e) => onChangeproductName(e)}
+                                placeholder="Enter News Name"
+                                name="newsName"
+                                value={newsName}
+                                onChange={(e) => onChangenewsName(e)}
                             />
                         </div>
                         <div className="form-group">
@@ -132,9 +132,9 @@ const handleSubmit = async () => {
                                 className="form-control"
                                 type="text"
                                 placeholder="Enter Description"
-                                name="productDescription"
-                                value={productDescription}
-                                onChange={(e) => onChangeproductDescription(e)}
+                                name="newsDescription"
+                                value={newsDescription}
+                                onChange={(e) => onChangenewsDescription(e)}
                             />
                         </div>
                         <div className="form-group">
@@ -208,4 +208,4 @@ const handleSubmit = async () => {
   );
 };
 
-export default EditProduct;
+export default EditNews;

@@ -32,8 +32,16 @@ const Login = () => {
         localStorage.setItem("userRole",data?.data?.data?.userRole);
         localStorage.setItem("user",data?.data?.data?.user);
 		console.log(data?.data?.data?.token);
-        // navigate("/");
-		// window.location.reload();
+		if(data?.data?.data?.userRole == "admin")
+		{
+			navigate("/Home");
+			window.location.reload();
+		}
+		else if(data?.data?.data?.userRole == "user")
+		{
+			navigate("/NewsHome");
+			window.location.reload();
+		}
         }
         else
         {

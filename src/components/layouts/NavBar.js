@@ -1,4 +1,6 @@
 import React,{useState ,  useEffect} from "react";
+import { useContext  } from "react";
+import AuthContext from "../context/Auth.context";
 import { useNavigate , Link} from "react-router-dom";
 import { Label , Button, Row, Col } from "reactstrap";
 
@@ -7,13 +9,13 @@ const Navbar = ()=>{
 
     const navigate = useNavigate();
 
-    //const [ Token,setToken ] = useState(localStorage.getItem("token"));
-    const [ User,setUser ] = useState(localStorage.getItem("user"));
 
+    const [ User,setUser ] = useState(null);
+    const { Token, userRole } = useContext(AuthContext);
 
-
-    const [token, settoken] = useState(null);
-  
+    useEffect(()=>{
+      setUser(localStorage.getItem("user"));
+    },[])
 
 
     const handleSubmit = () => {
@@ -30,16 +32,16 @@ const Navbar = ()=>{
         <div>
           <div className="topnav-right">
                 <Row style={{float:"right" , margin:"20px"}}>
-                    <Col style={{marginTop:"20px"}}>
+                    <Col style={{marginTop:"20px" , display: Token == null ? "none" : "flex" }} >
                       <button className="btn btn-danger" onClick={()=>handleSubmit()}><i class="fa-solid fa-power-off"></i></button>
                     </Col>
                     <Col style={{marginTop:"20px"}}>
-                        <b style={{fontSize:"15px" , display: token == undefined ? "none" : "flex"}}>{User}</b>                        
+                        <b style={{fontSize:"15px" , display: Token == null ? "none" : "flex"}}>{User}</b>                        
                     </Col>
                     <Col>
                         <i 
                         className="fa-solid fa-circle text-right" 
-                        style={{float:"right",display: token == undefined ? "none" : "flex" ,fontSize:"60px" , color:"#001EB9"}}
+                        style={{float:"right",display: Token == null ? "none" : "flex" ,fontSize:"60px" , color:"#001EB9"}}
                         >
                         </i>  
                         

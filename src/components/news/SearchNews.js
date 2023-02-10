@@ -1,5 +1,5 @@
 import React ,{useState,useEffect } from 'react';
-import { SearchProductDetails } from '../../services/ProductServices';
+import { SearchNewsDetails } from '../../services/NewsServices';
 import DataTable from "react-data-table-component";
 import {
    Row,
@@ -7,14 +7,14 @@ import {
 } from "reactstrap";
 import { useNavigate , Link, useParams} from "react-router-dom";
 
-const SearchProduct = () => {
+const SearchNews = () => {
 
  const navigate = useNavigate();
 
  const id = useParams();
 
  const [loading, setLoading] = useState(false);
- const [products, setproducts] = useState([]);
+ const [news, setnews] = useState([]);
  const [searchTextItem, setsearchTextItem] = useState("");
 
  const handleSearch=(e)=>{
@@ -22,12 +22,12 @@ const SearchProduct = () => {
     setsearchTextItem(e.target.value);
  }
 
- const getAllproducts = async () => {
+ const getAllnews = async () => {
     setLoading(true);
     console.log(id.id);
-    const data = await SearchProductDetails(id.id);
+    const data = await SearchNewsDetails(id.id);
     console.log("data",data);
-    setproducts(data?.data?.data?.data)
+    setnews(data?.data?.data?.data)
     setLoading(false);
  }
 
@@ -37,14 +37,14 @@ const SearchProduct = () => {
  }
 
  useEffect(()=>{
-    getAllproducts();
+    getAllnews();
  },[])
 
 
 
   return (
     <>
-        <h1 style={{marginLeft:"10px"}}>PRODUCTS</h1>
+        <h1 style={{marginLeft:"10px"}}>NEWS</h1>
         <br/><br/>
         <Row style={{marginLeft:"1px"}}>
             <Col >
@@ -61,7 +61,7 @@ const SearchProduct = () => {
                     }}>
                 <input
                     type="text"
-                    placeholder="Search For Products"
+                    placeholder="Search For News"
                     style={{
                         backgroundColor:"#F7F7F7",
                         borderRadius: '30px',
@@ -111,19 +111,19 @@ const SearchProduct = () => {
         </Row>
         <br/><br/>
 
-        {products.length > 0 ? 
-         <label style={{color:"grey"}}>{products.length} results found for '{id.id}'.</label>
+        {news.length > 0 ? 
+         <label style={{color:"grey"}}>{news.length} results found for '{id.id}'.</label>
          :"" }
 
-        {products.length > 0 ? 
+        {news.length > 0 ? 
         <table>
-            {products?.map((item,index)=>{
+            {news?.map((item,index)=>{
                 return(
                     <tr>
                         <div>
-                            <label>{item?.SKU}</label><br/>
-                            <label>{item?.productName}</label><br/>
-                            <label>{item?.productDescription}</label><br/>                            
+                            <label>{item?.ID}</label><br/>
+                            <label>{item?.newsName}</label><br/>
+                            <label>{item?.NEWSDescription}</label><br/>                            
                         </div>
                         <hr></hr>
                     </tr>
@@ -139,4 +139,4 @@ const SearchProduct = () => {
   );
 }
 
-export default SearchProduct;
+export default SearchNews;

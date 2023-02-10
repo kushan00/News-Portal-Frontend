@@ -6,11 +6,13 @@ import AuthContext from "./components/context/Auth.context";
 
 import Login from "./components/auth/Login";
 import Navbar from "./components/layouts/NavBar";
-import EditProduct from "./components/product/EditProduct";
-import ProductAdd from "./components/product/ProductAdd";
-import ProductHome from "./components/product/ProductsHome";
-import SearchProduct from "./components/product/SearchProduct";
+import EditNews from "./components/news/EditNews";
+import NewsAdd from "./components/news/NewsAdd";
+import NewsHome from "./components/news/NewsHome";
 import LandingPage from "./components/layouts/LandingPage";
+import SearchNews from "./components/news/SearchNews";
+import Register from "./components/auth/Register";
+import UserHome from "./components/user/UserHome";
 
 const SiteRouter = () => {
 
@@ -26,12 +28,17 @@ const SiteRouter = () => {
             {userLogged ? 
               (
               <>
+
                 <Route path="/" element={<LandingPage/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/product-add" element={<ProductAdd/>}/>
-                <Route path="/Home" element={<ProductHome/>}/>
-                <Route path="/search/:id" element={<SearchProduct/>}/>
-                <Route path="/update/:id" element={<EditProduct/>}/>
+
+                {/* Admin Routes */}
+                <Route path="/news-add" element={<NewsAdd/>}/>
+                <Route path="/Home" element={<NewsHome/>}/>
+                <Route path="/update/:id" element={<EditNews/>}/>
+                <Route path="/search/:id" element={<SearchNews/>}/>
+
+                {/* User Routes */}
+                <Route path="/NewsHome" element={<UserHome/>}/>
              
               </>
               )
@@ -39,7 +46,7 @@ const SiteRouter = () => {
               (
               <>
                 <Route exact path="*" element={<LandingPage/>}/>
-                {/* <Route path="/register" element={<Register/>}/> */}
+                <Route path="/register" element={<Register/>}/>
                 <Route path="/login" element={<Login/>}/>
               </>
               )

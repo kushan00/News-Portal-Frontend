@@ -21,30 +21,27 @@ import {
 } from "reactstrap";
 import moment from "moment/moment";
 import axios from "axios";
-import { AddNewProduct } from "../../services/ProductServices";
+import { AddNewNews } from "../../services/NewsServices";
 
-const ProductAdd = () => {
+const NewsAdd = () => {
 
   const navigate = useNavigate();
 
 const [image, setImage] = useState([]);
-const [SKU, setSKU] = useState('');
-const [quantity, setquantity] = useState('');
-const [productName, setproductName] = useState('');
-const [productDescription, setproductDescription] = useState('');
+const [body, setbody] = useState('');
+const [newsName, setnewsName] = useState('');
+const [newsDescription, setnewsDescription] = useState('');
 
 
-const onChangeSKU = (e) => {
-  setSKU(e.target.value);
+
+const onChangebody = (e) => {
+  setbody(e.target.value);
 }
-const onChangequantity = (e) => {
-  setquantity(e.target.value);
+const onChangenewsName = (e) => {
+  setnewsName(e.target.value);
 }
-const onChangeproductName = (e) => {
-  setproductName(e.target.value);
-}
-const onChangeproductDescription = (e) => {
-  setproductDescription(e.target.value);
+const onChangenewsDescription = (e) => {
+  setnewsDescription(e.target.value);
 }
 
 console.log(image)
@@ -52,24 +49,23 @@ console.log(image)
 const handleSubmit = async () => {
 
   let formData = new FormData()
-  formData.append('SKU', SKU);
-  formData.append('quantity', quantity);
-  formData.append('productName', productName);
-  formData.append('productDescription', productDescription);
+  formData.append('body', body);
+  formData.append('newsName', newsName);
+  formData.append('newsDescription', newsDescription);
   Array.from(image).forEach(item => {
     formData.append('products', item)
   });
   console.log("sending data set ",formData);
-  await AddNewProduct(formData).then(result => {
+  await AddNewNews(formData).then(result => {
     console.log("result",result)
     if(result.data.status === 1)
     {
-      alert('Product Added Successfully');
+      alert('News Added Successfully');
       navigate("/");
     }
     else
     {
-      alert('Product Not Added');
+      alert('News Not Added');
       window.location.reload();
     }
   }).catch(err => {
@@ -80,7 +76,7 @@ const handleSubmit = async () => {
   return (
     <div style={{margin:"100px"}}>
         
-        <h1 style={{marginLeft:"10px"}}>PRODUCTS {">"} <label style={{color:"#001EB9" , fontSize:"20px"}}>Add new product</label></h1>
+        <h1 style={{marginLeft:"10px"}}>NEWS {">"} <label style={{color:"#001EB9" , fontSize:"20px"}}>Add news</label></h1>
         <br/><br/>
      
  
@@ -90,26 +86,15 @@ const handleSubmit = async () => {
                     <CardBody>
                         <div style={{ width: "600px" }}>
                         <Form className="form">
-				                  <div className="form-group">
-                            <input
-                                id='responsiveProfile'
-                                className="form-control"
-                                type="text"
-                                placeholder="Enter SKU"
-                                name="SKU"
-                                value={SKU}
-                                onChange={(e) => onChangeSKU(e)}
-                            />
-                        </div>
                         <div className="form-group">
                             <input
                                 id='responsiveProfile'
                                 className="form-control"
-                                type="number"
-                                placeholder="Enter Quantity"
-                                name="quantity"
-                                value={quantity}
-                                onChange={(e) => onChangequantity(e)}
+                                type="text"
+                                placeholder="Enter body"
+                                name="body"
+                                value={body}
+                                onChange={(e) => onChangebody(e)}
                             />
                         </div>
                         <div className="form-group">
@@ -118,9 +103,9 @@ const handleSubmit = async () => {
                                 className="form-control"
                                 type="text"
                                 placeholder="Enter Product Name"
-                                name="productName"
-                                value={productName}
-                                onChange={(e) => onChangeproductName(e)}
+                                name="newsName"
+                                value={newsName}
+                                onChange={(e) => onChangenewsName(e)}
                             />
                         </div>
                         <div className="form-group">
@@ -129,9 +114,9 @@ const handleSubmit = async () => {
                                 className="form-control"
                                 type="text"
                                 placeholder="Enter Description"
-                                name="productDescription"
-                                value={productDescription}
-                                onChange={(e) => onChangeproductDescription(e)}
+                                name="newsDescription"
+                                value={newsDescription}
+                                onChange={(e) => onChangenewsDescription(e)}
                             />
                         </div>
                         <div className="form-group">
@@ -181,4 +166,4 @@ const handleSubmit = async () => {
   );
 };
 
-export default ProductAdd;
+export default NewsAdd;

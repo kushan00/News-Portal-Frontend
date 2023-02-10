@@ -1,5 +1,5 @@
 import React ,{useState,useEffect} from 'react';
-import { GetAllProductDetails ,DeleteProduct } from '../../services/ProductServices';
+import { GetAllNewsDetails ,DeleteNews } from '../../services/NewsServices';
 import DataTable from "react-data-table-component";
 import {
    Badge,
@@ -20,7 +20,7 @@ import {
 import moment from 'moment';
 import { useNavigate , Link} from "react-router-dom";
 
-const ProductHome = () => {
+const NewsHome = () => {
 
  const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ const ProductHome = () => {
 
  const getAllproducts = async () => {
     setLoading(true);
-    const data = await GetAllProductDetails();
+    const data = await GetAllNewsDetails();
     console.log("data",data);
     setproducts(data?.data?.data?.data)
     setLoading(false);
@@ -55,8 +55,8 @@ const ProductHome = () => {
     setopenDeleteModal(true);
  }
 
- const deleteProductItem = async () => {
-    const data = await DeleteProduct(deleteID);
+ const deleteNewsItem = async () => {
+    const data = await DeleteNews(deleteID);
    
     if(data?.data?.status == 1)
     {
@@ -141,7 +141,7 @@ const ProductHome = () => {
 
   return (
     <>
-        <h1 style={{marginLeft:"10px"}}>PRODUCTS</h1>
+        <h1 style={{marginLeft:"10px"}}>News Portal</h1>
         <br/><br/>
         <Row style={{marginLeft:"1px"}}>
             <Col >
@@ -158,7 +158,7 @@ const ProductHome = () => {
                     }}>
                 <input
                     type="text"
-                    placeholder="Search For Products"
+                    placeholder="Search For News"
                     style={{
                         backgroundColor:"#F7F7F7",
                         borderRadius: '30px',
@@ -197,13 +197,10 @@ const ProductHome = () => {
             <Col></Col>
             <Col></Col>
             <Col>
-                <a href="/product-add" className='btn btn-light' style={{backgroundColor:"#001EB9"}}>
-                        <span style={{color:'white' , marginLeft:"20px", marginRight:"20px"}}>New Product</span>
+                <a href="/news-add" className='btn btn-light' style={{backgroundColor:"#001EB9"}}>
+                        <span style={{color:'white' , marginLeft:"20px", marginRight:"20px"}}>Add News</span>
                 </a>
                 &nbsp;&nbsp;&nbsp;
-                <a href="/fav" className='btn btn-light' style={{backgroundColor:"#FFFFFF",borderColor:"#001EB9"}}>
-                        <i class="fa-solid fa-star" style={{ fontSize: "20px",color:"#001EB9" }}></i>
-                </a>
             </Col>
         </Row>
         <br/><br/>
@@ -238,7 +235,7 @@ const ProductHome = () => {
                 <b style={{ color:"black" }}>Cancel</b>
                 </Button>
 
-                <Button className="btn btn-light" style={{backgroundColor:"#001EB9" }} onClick={(e) => deleteProductItem(e)}>
+                <Button className="btn btn-light" style={{backgroundColor:"#001EB9" }} onClick={(e) => deleteNewsItem(e)}>
                     <span style={{color:'white' , marginLeft:"10px", marginRight:"10px"}}>Delete</span>
                 </Button>
             </div>
@@ -252,4 +249,4 @@ const ProductHome = () => {
   );
 }
 
-export default ProductHome;
+export default NewsHome;
